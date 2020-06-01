@@ -1,0 +1,186 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center" *ngIf="users">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white">Hello {{users.prenomUsers}}</h1>
+        <button type="button" [routerLink]="['/user-details']" class="btn btn-primary">Users details</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div class="card card-profile shadow">
+        <div class="card-body pt-0 pt-md-4">
+          <div class="text-center" *ngIf="users">
+            <h3>
+              {{users.prenomUsers}} {{users.nomUsers}}
+            </h3>
+            <div class="h5 font-weight-300">
+              <i class="ni location_pin mr-2"></i>{{users.posteUsers}}
+            </div>
+            <div class="h5 mt-4">
+              N° Téléphone: {{users.telUsers}} <br>
+              Adresse: {{users.adresseUsers}} <br>
+              Date de naissance: {{users.dateNaissanceUsers}} <br>
+              Email: {{users.email}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-profile shadow" style="margin-top: 50px;">
+        <div class="card-body pt-0 pt-md-4">
+          <div class="text-center">
+            <h3>
+              Team Members
+            </h3>
+            <div class="media align-items-center" *ngFor="let allUsers of  allUsers">
+              <div class="col-md-2 col-2">
+                <span class="avatar avatar-sm rounded-circle">
+                  <img alt="Image placeholder" src="assets/img/theme/user.png">
+                </span>
+              </div>
+              <div class="col-ms-7 col-7" style="font-family: Montserrat,'Helvetica Neue',Arial,sans-serif;">
+              <span class="nameMember">{{allUsers.prenomUsers}} {{allUsers.nomUsers}}</span>
+              </div>
+              <div class="col-md-3 col-3 text-right">
+              <span class="enveloppe">
+                <button class="btn btn-sm btn-outline-success btn-round btn-icon"  [routerLink]="['/send-mail']"><i
+                    class="fa fa-envelope" (click)="SendEmail(allUsers.email)" ></i></button>
+              </span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Add New User</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form *ngIf="!isSuccessful" name="form" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+            <h6 class="heading-small text-muted mb-4">User information</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label">Nom</label>
+                    <input type="text" name="nomUsers" [(ngModel)]="form.nomUsers" #nomUsers="ngModel"
+                      class="form-control form-control-alternative" placeholder="Nom" required>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-email">Prenom</label>
+                    <input type="text" name="prenomUsers" [(ngModel)]="form.prenomUsers" #prenomUsers="ngModel"
+                      class="form-control form-control-alternative" placeholder="Prenom" required>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Username</label>
+                    <input type="text" name="username" [(ngModel)]="form.username" #username="ngModel"
+                      class="form-control form-control-alternative" placeholder="Username">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Password</label>
+                    <input type="password" name="password" [(ngModel)]="form.password" #password="ngModel"
+                      class="form-control form-control-alternative" placeholder="Password">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Date de naissance</label>
+                    <input type="date" name="dateNaissanceUsers" [(ngModel)]="form.dateNaissanceUsers"
+                      #dateNaissanceUsers="ngModel" class="form-control form-control-alternative"
+                      placeholder="01/01/2020">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Poste</label>
+                    <input type="text" [(ngModel)]="form.posteUsers" #prenomUsers="ngModel" name="posteUsers"
+                      class="form-control form-control-alternative" placeholder="Poste">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Address -->
+            <h6 class="heading-small text-muted mb-4">Contact information</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Address</label>
+                    <input class="form-control form-control-alternative" name="adresseUsers"
+                      [(ngModel)]="form.adresseUsers" #prenomUsers="ngModel"
+                      placeholder="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-city">Téléphone</label>
+                    <input type="text" [(ngModel)]="form.telUsers" #prenomUsers="ngModel" name="telUsers"
+                      class="form-control form-control-alternative" placeholder="+216.20305060">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-country">Email</label>
+                    <input type="email" [(ngModel)]="form.email" #email="ngModel" name="email"
+                      class="form-control form-control-alternative" placeholder="user@exemple.com">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Address -->
+            <h6 class="heading-small text-muted mb-4">Rôle</h6>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="admin" id="defaultCheck1"
+                (click)="chooseRoles($event)">
+              <label class="form-check-label" for="defaultCheck1">
+                Administrateur
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="admin" id="defaultCheck2"
+                (click)="chooseRoles($event)">
+              <label class="form-check-label" for="defaultCheck1">
+                Employer
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="fin" id="defaultCheck"
+                (click)="chooseRoles($event)">
+              <label class="form-check-label" for="defaultCheck1">
+                Comptabilité
+              </label>
+            </div>
+            <hr class="my-4" />
+            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="reset" class="btn btn-secondary">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

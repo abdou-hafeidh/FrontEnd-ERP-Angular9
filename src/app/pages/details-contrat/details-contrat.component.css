@@ -1,0 +1,13 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
+  background-color: #5e72e4;
+  color: #fff;
+  margin-bottom: 20px;
+}

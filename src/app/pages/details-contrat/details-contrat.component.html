@@ -1,0 +1,56 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+</div>
+<!-- Editable table -->
+ <div class="card" >
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Contrat table</h3>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2">
+       <i class="material-icons" [routerLink]="['/contrat']" style="font-size:28px;color:#5e72e4">add_to_queue</i>
+      </span>
+      <table class="table table-bordered table-responsive-md table-striped text-center"  *ngIf="cnt">
+        <tr>
+          <th class="text-center">ID client</th>
+          <th class="text-center">Type contrat</th>
+          <th class="text-center">Nature contrat</th>
+          <th class="text-center">Date début</th>
+          <th sclass="text-center">Date fin</th>
+          <th sclass="text-center">Etat</th>
+          <th class="text-center"></th>
+        </tr>
+        <tr *ngFor="let cnt of cnt let g=index">
+          <td>
+           <a href="javascript:void(0)"> {{cnt.nom_client}}  </a>
+          </td>
+          <td>
+            {{cnt.type_contrat}}
+          </td>
+          <td>
+            {{cnt.nature_contrat}}
+          </td>
+          <td>
+            {{cnt.date_debut_contrat | date:'dd-MM-yyyy'}}
+          </td>
+          <td>
+            {{cnt.date_fin_contrat | date:'dd-MM-yyyy'}}
+          </td>
+          <td>
+            {{tabRestJour[g]}}
+          </td>
+          <td>
+            <span class="mat-button-wrapper">
+              <i _ngcontent-jsl-c5="" class="material-icons" style="color:#5e72e4">edit</i>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- <button id="previous" type="button" [routerLink]="['/dashboard']" class="btn btn-default">Previous</button> -->
+  </div>
+</div>
+

@@ -1,0 +1,8 @@
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 18px;
+}
+
+.example-button-row button {
+  display: table-cell;
+  margin-right: 8px !important;
+}

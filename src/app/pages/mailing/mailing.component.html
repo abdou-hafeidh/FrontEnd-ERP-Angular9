@@ -1,0 +1,41 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+</div>
+<!-- Editable table -->
+ <div class="card" >
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Nouveau message</h3>
+  <div class="card-body">
+
+<div class="container register-form">
+  <div class="form">
+      <div class="note">
+          <p>It is a simple form for sending emails.</p>
+      </div>
+      <form [formGroup]= "mailFormGroup">
+      <div class="form-content">
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="email" class="form-control" [(ngModel)]= "emailUser" formControlName="to" placeholder="Destinataires" value=""/>
+                  </div>
+                  <div class="form-group">
+                    <textarea  class="form-control" [(ngModel)]= "form.subject" formControlName="subject" placeholder="Message" value=""></textarea>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]= "form.name" formControlName="name" placeholder="Objet" value=""/>
+                </div>
+              </div>
+          </div>
+          <button type="button" class="btnSubmit" (click)="sendEmail();reset()">Send Mail</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+</div>

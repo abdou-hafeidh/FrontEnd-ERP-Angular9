@@ -1,0 +1,95 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+
+</div>
+
+<mat-horizontal-stepper labelPosition="bottom" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Customer information</ng-template>
+      <mat-form-field class="example-full-width">
+        <mat-label>Nom de client</mat-label>
+        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option.nom_clt}} {{option.prenom_clt}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" optional>
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Contract details</ng-template>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Type de contrat</mat-label>
+          <select matNativeControl required [(ngModel)]= "form.type_contrat" formControlName="type_contrat">
+            <option>Veuillez sélectionner</option>
+            <option value="auto">Assurance auto</option>
+            <option value="habitation">Assurance habitation</option>
+            <option value="sante">Assurance santé</option>
+            <option value="moto">Assurance moto</option>
+            <option value="vie">Assurance vie</option>
+            <option value="credit">Assurance crédit</option>
+            <option value="deces">Assurance décès</option>
+          </select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Veuillez sélectionner</mat-label>
+          <select matNativeControl required [(ngModel)]= "form.nature_contrat" formControlName="nature_contrat">
+            <option>Nature de l'assurance</option>
+            <option value="Basique">La formule Basique</option>
+            <option value="Essentielle">La formule Essentielle</option>
+            <option value="Confort">La formule Confort</option>
+          </select>
+        </mat-form-field><br>
+        <mat-form-field>
+          <mat-label>Date début</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]= "form.date_debut_contrat" formControlName="date_debut_contrat">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Date fin</mat-label>
+          <input matInput [matDatepicker]="pick" [(ngModel)]= "form.date_fin_contrat" formControlName="date_fin_contrat">
+          <mat-datepicker-toggle matSuffix [for]="pick"></mat-datepicker-toggle>
+          <mat-datepicker #pick></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Check the information before saving
+        </mat-panel-title>
+        <mat-panel-description>
+          {{panelOpenState ? 'open' : 'closed'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ul>
+        <li>Type contrat: {{form.type_contrat}}</li>
+        <li>Nature contrat: {{form.nature_contrat}}</li>
+        <li>Date début contrat: {{form.date_debut_contrat | date:'dd-MM-yyyy'}}</li>
+        <li>Date fin contrat: {{form.date_fin_contrat | date:'dd-MM-yyyy'}}</li>
+      </ul>
+      <div class="example-button-row">
+        <button mat-flat-button matStepperPrevious>Back</button>
+        <button mat-flat-button color="primary" (click)= "addContrat()">Submit</button>
+        <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+      </div>
+    </mat-expansion-panel>
+  </mat-step>
+</mat-horizontal-stepper>

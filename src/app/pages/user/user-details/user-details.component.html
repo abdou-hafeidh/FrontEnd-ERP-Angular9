@@ -1,0 +1,191 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+</div>
+<!-- Page content -->
+
+<!-- Editable table -->
+<div class="card">
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Users details</h3>
+  <div class="card-body">
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="nomUsers">
+          <th mat-header-cell *matHeaderCellDef> Nom & Prénom </th>
+          <td mat-cell *matCellDef="let element"> {{element.nomUsers}} {{element.prenomUsers}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="telUsers">
+          <th mat-header-cell *matHeaderCellDef> Téléphone </th>
+          <td mat-cell *matCellDef="let element"> {{element.telUsers}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="adresseUsers">
+          <th mat-header-cell *matHeaderCellDef> Adresse </th>
+          <td mat-cell *matCellDef="let element"> {{element.adresseUsers}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="posteUsers">
+          <th mat-header-cell *matHeaderCellDef> Poste </th>
+          <td mat-cell *matCellDef="let element"> {{element.posteUsers}} </td>
+        </ng-container>
+
+         <!-- Symbol Column -->
+         <ng-container matColumnDef="options">
+          <th mat-header-cell *matHeaderCellDef> options </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="mat-button-wrapper">
+              <i _ngcontent-jsl-c5="" class="material-icons" (click)="open(content,element)"  style="color:#5e72e4">edit</i>
+              </span>
+              <span class="mat-button-wrapper" *ngIf="element.bannir==0">
+              <i _ngcontent-jsl-c5="" class="material-icons"  (click)="debannirUser(element.id)" style="color:#2dce89">check</i>
+              </span>
+              <span class="mat-button-wrapper" *ngIf="element.bannir==1">
+              <i _ngcontent-jsl-c5="" class="material-icons"  (click)="bannirUser(element.id)" style="color:#f5365c">block</i>
+            </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+    <!-- <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2">
+        <a class="text-success"  [routerLink]="['/user-profile']">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+      </span>
+      <table class="table table-bordered table-responsive-md table-striped text-center" *ngIf="users">
+        <tr>
+          <th class="text-center">Nom & Prénom</th>
+          <th class="text-center">Email</th>
+          <th class="text-center">Téléphone</th>
+          <th sclass="text-center">Adresse</th>
+          <th class="text-center">Poste</th>
+          <th class="text-center"></th>
+        </tr>
+        <tr *ngFor="let users of users">
+          <td>
+            {{users.prenomUsers}} {{users.nomUsers}}
+          </td>
+          <td>
+            {{users.email}}
+          </td>
+          <td>
+            {{users.telUsers}}
+          </td>
+          <td>
+            {{users.adresseUsers}}
+          </td>
+          <td>
+            {{users.posteUsers}}
+          </td>
+          <td>
+            <span class="table-remove">
+              <button id="btn" (click)="open(content,users)"><i class="fas fa-edit"></i></button>
+            </span>
+          </td>
+        </tr>
+      </table>
+      <mat-paginator [length]="100"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+    </div> -->
+    <button id="previous" type="button" [routerLink]="['/user-profile']" class="btn btn-default">Previous</button>
+  </div>
+</div>
+<!-- Editable table -->
+
+<!-- Modal-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form name="form" (ngSubmit)="updateUser();modal.close('Submit click')" #f="ngForm" novalidate>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label">Nom</label>
+            <input type="text" name="nomUsers" id="nomUsers" [(ngModel)]="form.nomUsers" #nomUsers="ngModel"
+              class="form-control form-control-alternative" placeholder="Nom" required>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label" for="input-email">Prenom</label>
+            <input type="text" name="prenomUsers" id="prenomUsers" [(ngModel)]="form.prenomUsers" #prenomUsers="ngModel"
+              class="form-control form-control-alternative" placeholder="Prenom" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label" for="input-first-name">Username</label>
+            <input type="text" name="username" id="username" [(ngModel)]="form.username" #username="ngModel"
+              class="form-control form-control-alternative" placeholder="Username">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label" for="input-last-name">Date de naissance</label>
+            <input type="date" id="dateNaissanceUsers" name="dateNaissanceUsers" [(ngModel)]="form.dateNaissanceUsers"
+              #dateNaissanceUsers="ngModel" class="form-control form-control-alternative" placeholder="01/01/2020">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label" for="input-first-name">Poste</label>
+            <input type="text" id="posteUsers" [(ngModel)]="form.posteUsers" #prenomUsers="ngModel" name="posteUsers"
+              class="form-control form-control-alternative" placeholder="Poste">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label" for="input-first-name">Address</label>
+            <input class="form-control form-control-alternative" id="adresseUsers" name="adresseUsers"
+              [(ngModel)]="form.adresseUsers" #prenomUsers="ngModel"
+              placeholder="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label" for="input-city">Téléphone</label>
+            <input type="text" name="telUsers" id="telUsers" [(ngModel)]="form.telUsers" #prenomUsers="ngModel"
+              class="form-control form-control-alternative" placeholder="+216.20305060">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label" for="input-country">Email</label>
+            <input type="email" name="email" id="email" [(ngModel)]="form.email" #email="ngModel"
+              class="form-control form-control-alternative" placeholder="user@exemple.com">
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+</ng-template>
+<!-- Modal-->
