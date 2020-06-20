@@ -10,6 +10,7 @@ import {
 } from "../../variables/charts";
 import { UserService } from 'src/service/user.service';
 import { ClientService } from 'src/service/client.service';
+import { ContratService } from 'src/service/contrat.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,12 +22,16 @@ export class DashboardComponent implements OnInit {
   public datasets: any;
   public data: any;
   public usr: any;
+  public cntr: any;
   public clt: any;
+  public montant: any = 0;
   public salesChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
-  constructor(private userService: UserService, private clientService: ClientService) { }
+  constructor(private userService: UserService,
+              private clientService: ClientService,
+              private contratService: ContratService) { }
 
   ngOnInit() {
 
@@ -51,9 +56,9 @@ export class DashboardComponent implements OnInit {
     var chartSales = document.getElementById('chart-sales');
 
     this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
+      type: 'line',
+      options: chartExample1.options,
+      data: chartExample1.data
     });
 
     this.userService.getAllUser().subscribe(data => {
@@ -63,13 +68,19 @@ export class DashboardComponent implements OnInit {
     this.clientService.getAllClient().subscribe(data => {
       this.clt = data.length;
     });
+
+    this.contratService.getAllContrat().subscribe(data => {
+      this.cntr = data;
+      console.log(this.cntr);
+       for (let i = 0; i <= this.cntr.length; i++) {
+         this.montant += parseFloat(this.cntr[i].montant);
+         console.log(this.montant);
+
+       }
+    });
   }
 
-
-
-
-
-  public updateOptions() {
+  public updateOptions()  {
     this.salesChart.data.datasets[0].data = this.data;
     this.salesChart.update();
   }

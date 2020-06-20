@@ -44,11 +44,13 @@ export class UserProfileComponent implements OnInit {
       for (let index = 0; index < this.roles.length; index++) {
         const element = this.roles[index];
         if (element == event.target.value) {
-          this.roles[index] = '';
+          this.roles.splice(index, 1) ;
         }
       }
     }
   }
+  console.log(this.roles);
+
  }
 
   onSubmit() {
