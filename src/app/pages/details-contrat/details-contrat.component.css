@@ -11,3 +11,10 @@ th.mat-sort-header-sorted {
   color: #fff;
   margin-bottom: 20px;
 }
+
+.red {
+  color: red !important;
+  }
+  .green {
+  color: green !important;
+  }

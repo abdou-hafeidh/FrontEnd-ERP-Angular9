@@ -68,6 +68,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import { DetailsContratComponent } from './pages/details-contrat/details-contrat.component';
 import { MailingComponent } from './pages/mailing/mailing.component';
 import { PaiementComponent } from './pages/paiement/paiement.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -137,7 +138,7 @@ import { PaiementComponent } from './pages/paiement/paiement.component';
     MailingComponent,
     PaiementComponent
   ],
-  providers: [AuthentificationGuard, LoginServiceService,
+  providers: [AuthentificationGuard, LoginServiceService, DatePipe,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

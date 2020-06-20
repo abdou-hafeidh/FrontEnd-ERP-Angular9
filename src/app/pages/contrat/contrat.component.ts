@@ -18,6 +18,7 @@ export class ContratComponent implements OnInit {
   panelOpenState = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  lastFormGroup: FormGroup;
   form: Contrat = new Contrat();
   isLinear = true;
   public client: any;
@@ -36,6 +37,11 @@ export class ContratComponent implements OnInit {
       nature_contrat: ['', Validators.required],
       date_debut_contrat: ['', Validators.required],
       date_fin_contrat: ['', Validators.required]
+    });
+    this.lastFormGroup = this._formBuilder.group({
+      montant: ['', Validators.required],
+      datePaiement: ['', Validators.required],
+      typePaiement: ['', Validators.required]
     });
     this.clientService.getAllClient().subscribe(data => {
       this.client = data;

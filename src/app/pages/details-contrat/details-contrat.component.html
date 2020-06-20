@@ -40,8 +40,9 @@
             {{cnt.date_fin_contrat | date:'dd-MM-yyyy'}}
           </td>
           <td>
-            {{tabRestJour[g]}}
-          </td>
+            <span [ngClass]="{'red': tabRestJour[g] <15,
+            'green': tabRestJour[g] > 15}">Il vous reste {{tabRestJour[g]}} jours.</span>
+            </td>
           <td>
             <span class="mat-button-wrapper">
               <i _ngcontent-jsl-c5="" class="material-icons" style="color:#5e72e4">edit</i>
