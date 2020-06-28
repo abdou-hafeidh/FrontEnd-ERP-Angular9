@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Contrat } from 'src/app/components/models/contrat';
 import { DatePipe } from '@angular/common';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-details-contrat',
@@ -20,10 +21,13 @@ export class DetailsContratComponent implements OnInit {
   resultDate: any;
   tabRestJour: number[] = [];
 
-  constructor(private contratService: ContratService, private datepipe: DatePipe) { }
+  constructor(private contratService: ContratService,
+              private datepipe: DatePipe,
+              private spinner: AppComponent) { }
 
 
   ngOnInit(): void {
+    this.spinner.spinner();
     this.contratService.getAllContrat().subscribe(data => {
       this.cnt = data;
       this.cnt.forEach(element => {

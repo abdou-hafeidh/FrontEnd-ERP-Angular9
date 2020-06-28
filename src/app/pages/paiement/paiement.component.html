@@ -3,3 +3,64 @@
   <span class="mask bg-gradient-danger opacity-8"></span>
 
 </div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+    </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Caisse</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSubmit()" name="form" #f="ngForm">
+            <h6 class="heading-small text-muted mb-4">Décaissement</h6>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label">Date</label>
+                  <input type="date" name="date_paiement" [(ngModel)]="form.date_paiement" #date_paiement="ngModel"
+                    class="form-control form-control-alternative" placeholder="Date" required>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-email">Montant</label>
+                  <input type="text" name="montant" [(ngModel)]="form.montant" #montant="ngModel"
+                    class="form-control form-control-alternative" placeholder="Montant" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label">Désignation</label>
+                  <input type="text" name="designation" [(ngModel)]="form.designation" #designation="ngModel"
+                    class="form-control form-control-alternative" placeholder="Designation" required>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label class="form-control-label" for="input-email">Paiement</label>
+                <div class="form-group">
+
+                  <mat-radio-group aria-label="Select an option" (click)="chooseRoles($event)">
+                    <mat-radio-button name="espece" value="espece">Espèces</mat-radio-button>
+                    <mat-radio-button name="cheque" value="cheque">Chèque</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+             </div>
+             <hr class="my-4"/>
+             <button type="submit" class="btn btn-success">Submit</button>
+             <button type="reset" class="btn btn-secondary">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

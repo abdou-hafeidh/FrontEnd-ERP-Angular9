@@ -7,6 +7,7 @@ import { ContratService } from 'src/service/contrat.service';
 import { Contrat } from 'src/app/components/models/contrat';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-contrat',
@@ -25,10 +26,16 @@ export class ContratComponent implements OnInit {
   filteredOptions: any;
   myControl = new FormControl();
   idClient: any;
-  constructor(private _formBuilder: FormBuilder,  private clientService: ClientService,
-              private contratService: ContratService, private toastr: ToastrService, private router: Router) { }
+  constructor(private _formBuilder: FormBuilder,
+              private clientService: ClientService,
+              private contratService: ContratService,
+              private toastr: ToastrService,
+              private router: Router,
+              private spinner: AppComponent) { }
 
   ngOnInit(): void {
+
+    this.spinner.spinner();
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });

@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import { AppComponent } from 'src/app/app.component';
+import { threadId } from 'worker_threads';
 
 
 
@@ -28,11 +30,15 @@ export class UserDetailsComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(private userService: UserService,  private toastr: ToastrService,
-              private route: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
+  constructor(private userService: UserService,
+              private toastr: ToastrService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private modalService: NgbModal,
+              private spinner: AppComponent) {}
 
   ngOnInit() {
-
+    this.spinner.spinner();
     this.userService.getAllUser().subscribe(data => {
       this.users = data.content;
       this.dataSource = new MatTableDataSource<UserProfile>(this.users);

@@ -5,6 +5,7 @@ import { UserProfile } from 'src/app/components/models/userProfile';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/service/user.service';
 import { Local } from 'protractor/built/driverProviders';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -23,10 +24,13 @@ export class UserProfileComponent implements OnInit {
   roles: String[] = [];
   form: UserProfile = new UserProfile();
 
-  constructor(private loginServiceService: LoginServiceService, private toastr: ToastrService,
-              private userService: UserService) { }
+  constructor(private loginServiceService: LoginServiceService,
+              private toastr: ToastrService,
+              private userService: UserService,
+              private spinner: AppComponent) { }
 
   ngOnInit() {
+    this.spinner.spinner();
     this.loginServiceService.getUser().subscribe(data => {
       this.users = data ;
     });
@@ -49,8 +53,6 @@ export class UserProfileComponent implements OnInit {
       }
     }
   }
-  console.log(this.roles);
-
  }
 
   onSubmit() {
