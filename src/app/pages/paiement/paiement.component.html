@@ -17,21 +17,27 @@
           </div>
         </div>
         <div class="card-body">
-          <form (ngSubmit)="onSubmit()" name="form" #f="ngForm">
+          <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
             <h6 class="heading-small text-muted mb-4">Décaissement</h6>
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
                   <label class="form-control-label">Date</label>
-                  <input type="date" name="date_paiement" [(ngModel)]="form.date_paiement" #date_paiement="ngModel"
-                    class="form-control form-control-alternative" placeholder="Date" required>
+                  <input type="date" formControlName="date_paiement" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.date_paiement.errors }" [(ngModel)]="form.date_paiement">
+                  <div *ngIf="submitted && f.date_paiement.errors" class="invalid-feedback">
+                    <div *ngIf="f.date_paiement.errors.required">date paiement is required</div>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label class="form-control-label" for="input-email">Montant</label>
-                  <input type="text" name="montant" [(ngModel)]="form.montant" #montant="ngModel"
-                    class="form-control form-control-alternative" placeholder="Montant" required>
+                  <label class="form-control-label">Montant</label>
+                  <input type="text" formControlName="montant" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.montant.errors }" [(ngModel)]="form.montant">
+                  <div *ngIf="submitted && f.montant.errors" class="invalid-feedback">
+                    <div *ngIf="f.montant.errors.required">montant is required</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -40,24 +46,31 @@
               <div class="col-lg-6">
                 <div class="form-group">
                   <label class="form-control-label">Désignation</label>
-                  <input type="text" name="designation" [(ngModel)]="form.designation" #designation="ngModel"
-                    class="form-control form-control-alternative" placeholder="Designation" required>
+                  <input type="text" formControlName="designation" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.designation.errors }" [(ngModel)]="form.designation">
+                  <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                    <div *ngIf="f.designation.errors.required">designation is required</div>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-6">
                 <label class="form-control-label" for="input-email">Paiement</label>
                 <div class="form-group">
 
-                  <mat-radio-group aria-label="Select an option" (click)="chooseRoles($event)">
+                  <mat-radio-group aria-label="Select an option" formControlName="type_paiement" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.type_paiement.errors }" (click)="chooseRoles($event)">
                     <mat-radio-button name="espece" value="espece">Espèces</mat-radio-button>
                     <mat-radio-button name="cheque" value="cheque">Chèque</mat-radio-button>
                   </mat-radio-group>
+                  <div *ngIf="submitted && f.type_paiement.errors" class="invalid-feedback">
+                    <div *ngIf="f.type_paiement.errors.required">type_paiement is required</div>
+                  </div>
                 </div>
               </div>
-             </div>
-             <hr class="my-4"/>
-             <button type="submit" class="btn btn-success">Submit</button>
-             <button type="reset" class="btn btn-secondary">Cancel</button>
+            </div>
+            <hr class="my-4" />
+            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="reset" class="btn btn-secondary" (click)="onReset()">Cancel</button>
           </form>
         </div>
       </div>
