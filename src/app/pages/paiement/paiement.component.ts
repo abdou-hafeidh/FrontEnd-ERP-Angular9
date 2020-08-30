@@ -44,7 +44,7 @@ export class PaiementComponent implements OnInit {
   get f() { return this.formGroup.controls; }
 
   chooseRoles(event) {
-    if (event.target.checked == true) {
+    if (event.target.checked === true) {
       this.tpaiement.push(event.target.value);
     }
   }
